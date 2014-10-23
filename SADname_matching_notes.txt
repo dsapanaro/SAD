@@ -1,0 +1,5 @@
+#
+#establish match between main name field and FRESCO subject headings [where can i get access to the SH list? scrape subject headings from FRESCO?]
+#insert FRESCO subject heading into LCN field
+#establish match between main name and VIAF
+#insert VIAF name contributed from LC into LCN field. if no LC name, insert ULAN contributed name into a new field called ULAN. 
