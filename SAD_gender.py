@@ -13,13 +13,9 @@ with open("colon3_table_export.csv", "r") as f:
 	print(Female_Artists)
 
 with open('Female_Artists.csv', 'w', newline='') as csvfile:
-    writer = csv.writer(csvfile, delimiter=' ', quotechar=' ',
-                      )
+    writer = csv.writer(csvfile, delimiter=' ', quotechar=' ')
     writer.writerows(Female_Artists)
 
 
 
 #problems: space between every letter, separating into two columns, want 'Vives, Carmen' to be in one column
-		
-
-
