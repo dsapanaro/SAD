@@ -14,11 +14,10 @@ with open("colon3_table_export.csv", "r") as f:
 	
 
 with open('Female_Artists.csv', 'w') as csvfile:
-    writer = csv.writer(csvfile, dialect='excel-tab', newline=' ')
+    writer = csv.writer(csvfile, dialect='excel-tab')
     writer.writerows(Artists_Name)
     writer.writerows(Artists_Gender)
     #NEED to make separate column 
-
 
 #problems: space between every letter, separating into two columns, want 'Vives, Carmen' to be in one column
 #excel_tab and excel might be possible solutions 
