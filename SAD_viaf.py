@@ -16,19 +16,35 @@
 #then I want to pull out the name contributed by LC and insert it into the LC name column in the CSV.
 #and I also want to pull out the VIAF URI and the LC URI and put those in new fields.
 
+#http://www.voidspace.org.uk/python/articles/OOP.shtml
+
 import requests, json, csv
+import xml.etree.ElementTree as etree
 
 #payload = { "query" : "local.names"}
 #r = requests.get('http://viaf.org/viaf/search', params=payload)
+#class viafSearch:
 
-with open("colon3_table_export.csv", "r") as f:
+viafurl = "http://viaf.org/viaf/search?query=cql.any+=+{NAME}&httpAccept=text/xml"
+sourceFile = 'colon3_table_export.csv'
 
-	reader = csv.reader(f)
-	for row in reader:
-		artistname = row[1]
-	#	print(row[1])
+def __init__(self):
+	self.processFile()
 
-#r = requests.get('http://viaf.org/viaf/search?query=local.names+all+"spanish"')
+def requestProcess(self,searchVal):	
 
+	with open("colon3_table_export.csv", "r") as f:
+
+		reader = csv.reader(f)
+		for row in reader:
+			mainSADname = row[1]
+			mainSADname = '"' + mainSADname + '"'
+		#print(mainSADname)
+
+#def viaf_search(mainSADname):
+	
+r = requests.get(viafurl.replace('{NAME}',mainSADname))
+viafurl.replace('{NAME}',mainSADname)
+print(viafurl)
 #data = json.loads(r.text)
 #print(data)
