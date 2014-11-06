@@ -2,22 +2,18 @@ import csv
 
 with open("colon3_table_export.csv", "r") as f:
 
-	Artists_Name = []
-	Artists_Gender = []
+	Artists_Everything= []
 
 	reader = csv.reader(f)
 	for row in reader:
-		Artist_Name = row[1]
-		Artists_Name.append(Artist_Name)
-		Artist_Gender = row[26]
-		Artists_Gender.append(Artist_Gender)	
-	
+		Artists_Everything.append([row[1], row[26]])
 
 with open('Female_Artists.csv', 'w') as csvfile:
-    writer = csv.writer(csvfile, dialect='excel-tab')
-    writer.writerows(Artists_Name)
-    writer.writerows(Artists_Gender)
-    #NEED to make separate column 
+    writer = csv.writer(csvfile)
+    for a_row in Artists_Everything:
+    	writer.writerow(a_row)
+    	#print(a_row)
 
-#problems: space between every letter, separating into two columns, want 'Vives, Carmen' to be in one column
-#excel_tab and excel might be possible solutions 
+    
+    
+ 
