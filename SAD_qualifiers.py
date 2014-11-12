@@ -10,12 +10,13 @@ import csv
 import re
 p = re.compile("\]")
 q = re.compile("\-")
-
+date_qualifiers_range = []
+date_qualifiers = []
+date_qualifiers_range2 = []
+data = []
 with open("colon3_table_export.csv", "r") as f:
 
-	date_qualifiers_range = []
-	date_qualifiers = []
-	data = []
+
 
 	reader = csv.reader(f)
 	for row in reader:
@@ -28,10 +29,13 @@ with open("colon3_table_export.csv", "r") as f:
 			#data.append(row)
 			#print(data)
 		# if row[13] == "exh." or "[exh.":
-			if row[4] != "":
+			if row[4] == "" and row[8] == "":
+					date_qualifiers_range.append([row[1], row[12], row[12]])
+			elif row[4] != "":
 				date_qualifiers_range.append([row[1], row[4], row[12]])
 			elif row[4] == "" and row[8] != "":
 				date_qualifiers_range.append([row[1], row[12], row[8]])
+
 	# for date_cell in date_qualifiers:
 	# 	#print(date_cell)
 	# 	for s in date_cell:
@@ -46,12 +50,24 @@ with open("colon3_table_export.csv", "r") as f:
 # 	for a_row in data:
 # 		writer.writerow(a_row)
 
-			with open('date_qualifiers.csv', 'w') as csvfile:	
-				writer = csv.writer(csvfile)
-				for a_row in date_qualifiers:
-					writer.writerow(a_row)
+with open('date_qualifiers.csv', 'w') as csvfile:	
+	writer = csv.writer(csvfile)
+	for a_row in date_qualifiers:
+		writer.writerow(a_row)
 
-# with open('date_qualifiers_range.csv', 'w') as csvfile:	
+with open('date_qualifiers_range.csv', 'w') as csvfile:	
+	writer = csv.writer(csvfile)
+	for a_row in date_qualifiers_range:
+		writer.writerow(a_row)
+
+# with open('date_qualifiers_range.csv', 'r') as f:	
+# 	reader = csv.reader(f)
+# 	for row in reader:
+# 		date_qualifiers_range2.append([row[0], row[1]])
+
+# with open('date_qualifiers_range2.csv', 'w') as csvfile:	
 # 	writer = csv.writer(csvfile)
-# 	for a_row in date_qualifiers_range:
-# 		writer.writerow(a_row)
+# 	for a_row in date_qualifiers_range2:
+# 		for thing in a_row:
+# 			thing.split(",")
+# 	writer.writerows(thing)
