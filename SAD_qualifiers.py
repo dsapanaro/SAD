@@ -6,6 +6,11 @@
 # if there's a ], include only the number
 # if there's a 4 dig number and then a -, put the first 4 digit number in column B, put the second 4 digit number in column C
 
+# long-term goals: how to convert a date range to new rows with the artist name and each individual year in the range.
+# delete the other qualified dates in the column.
+
+
+
 import csv
 import re
 p = re.compile("\]")

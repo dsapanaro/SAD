@@ -19,8 +19,6 @@ HighMatches = {}
 
 def compare(SADstring,FRESCOstring):
 #going to pass the SADstring to the function that will then perform levenstein matching/fuzzy match and 
-# if the percent match is over 75%, dump the FRESCO name into a new column in the CSV.
-#to figure out: how to make a new column in an already existing CSV (diana is working on this)	
 #want to break up each name string into words, then see if substrings are present, and what percentage of the words are the same.
 
     #return difflib.SequenceMatcher(x=SADstring.lower(), y=FRESCOstring.lower()).ratio() > 0.9
@@ -30,36 +28,61 @@ def compare(SADstring,FRESCOstring):
    # 	print(SADstring, ":",FRESCOstring)
     c = fuzz.token_set_ratio(SADstring, FRESCOstring)
     if c > 90:
-    	print("high match:", SADstring, ":", FRESCOstring, c)
-   
-   # if c < 90 and c > 75:
-    #	print ("mid match:", SADstring, ":", FRESCOstring, c)
+    	#print("high match:", SADstring, ":", FRESCOstring, c)
+    	return(FRESCOstring)
+    else:
+    	return(False)
+   #if it is a match, want to update
+   #should return LCSH or false
 
-with open("colon3_table_export.csv", "r") as f:
+  # if the percent match is over 75%, dump the FRESCO name into the extant LC column in the CSV (row[3]). or, add a new column?? (just make a new one directly in the CSV)
+#to figure out: how to make a new column in an already existing CSV (diana is working on this)
+#how do i make sure the name goes into the right row?
 
-	reader = csv.reader(f)
-	for row in reader:
+with open("colon3_table_export2.csv", "r") as f:
+
+	colon3_table_export2 = csv.reader(f)
+	for row in colon3_table_export2:
+		FRESCOname = row[4]
 		mainSADname = row[1]
-		SADnames.append(mainSADname)
-	#print (SADnames)
-with open("FRESCO_spanish_names.csv", "r", encoding="ISO-8859-1") as f:
+		with open("FRESCO_spanish_names.csv", "r", encoding="ISO-8859-1") as g:
+			FRESCO_spanish_names = csv.reader(g)
+			for row in FRESCO_spanish_names:
+				frescoSH = row[0]
+				d = compare(mainSADname,frescoSH)
+		
+				if d != False:
+					FRESCOname = d
+					# writer = csv.writer(f)
+					# writer.writerow(colon3_table_export2)
+	# 				for row in colon3_table_export2:
+			
+ # with open("colon3_table_export2.csv", "w") as f:
+ # 	
+ # with open("colon3_table_export2.csv", "r") as f:
 
-	reader = csv.reader(f)
-	for row in reader:
-		frescoSH = row[0]
-		FRESCOnames.append(frescoSH)
-	#print(FRESCOnames)
+# 	colon3_table_export2 = csv.reader(f)
+# 	for row in colon3_table_export2:
+# 		mainSADname = row[1]
+# 		SADnames.append(mainSADname)
+# 	#print (SADnames)
+# with open("FRESCO_spanish_names.csv", "r", encoding="ISO-8859-1") as g:
 
-for x in SADnames:
-	SADname = x
+# 	FRESCO_spanish_names = csv.reader(g)
+# 	for row in FRESCO_spanish_names:
+# 		frescoSH = row[0]
+# 		FRESCOnames.append(frescoSH)
+# for x in SADnames:
+# 	SADname = x
 
-	for y in FRESCOnames:
+# 	for y in FRESCOnames:
 
-		FRESCOname = y
+# 		FRESCOname = y
 
-		compare(SADname, FRESCOname)
-	#print(compare)
+# 		compare(SADname, FRESCOname)
 
+		# variable = compare function, returns true or false
+		# if it's true, then update 
 
 #' '.join([j for j, m in zip(SADnames.split(), FRESCOnames.split()) if j==m])
 #eventually need to write back into this CSV, and tell it exactly where to write the new column
