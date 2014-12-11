@@ -18,37 +18,10 @@
 #or do I want to insert a link to the VIAF/LC authority?
 #http://www.voidspace.org.uk/python/articles/OOP.shtml
 
-# import requests, json, csv
-# import xml.etree.ElementTree as etree
+#http://id.loc.gov/authorities/names/
 
-# #payload = { "query" : "local.names"}
-# #r = requests.get('http://viaf.org/viaf/search', params=payload)
-# #class viafSearch:
-
-# viafurl = "http://viaf.org/viaf/search?query=cql.any+=+{NAME}&httpAccept=text/xml"
-# sourceFile = 'colon3_table_export.csv'
-
-# def __init__(self):
-# 	self.processFile()
-
-# def requestProcess(self,searchVal):	
-
-# 	with open("colon3_table_export.csv", "r") as f:
-
-# 		reader = csv.reader(f)
-# 		for row in reader:
-# 			mainSADname = row[1]
-# 			mainSADname = '"' + mainSADname + '"'
-# 		#print(mainSADname)
-
-# #def viaf_search(mainSADname):
-	
-# r = requests.get(viafurl.replace('{NAME}',mainSADname))
-# viafurl.replace('{NAME}',mainSADname)
-# print(viafurl)
-#data = json.loads(r.text)
-#print(data)
-
+#would like to pull out two things: 1. the viaf ID as a link and 2. the text of the LC name and the LC ID as a link
+#get the LC ID from the VIAF search, then go and just ask LC api for id and name in JSON
 # -*- encoding: utf-8 -*-
 import time, requests, json, sys, csv
 import xml.etree.ElementTree as etree 
@@ -104,11 +77,12 @@ class viafSearch:
 
 
 					aResult = {}
-					aResult['birthDate'] = None
-					aResult['deathDate'] = None
-					aResult['altNames'] = []
+					#aResult['birthDate'] = None
+					#aResult['deathDate'] = None
+					aResult['Document'] = []
+					aResult['mainName'] = []
 					aResult['sources'] = []
-					aResult['titles'] = []
+					aResult['mainNamesource'] = []
 
 
 					for recordData in record.findall('{http://www.loc.gov/zing/srw/}recordData'):
@@ -117,23 +91,28 @@ class viafSearch:
 						for viafCluster in recordData.findall('{http://viaf.org/viaf/terms#}VIAFCluster'):
 
 
-							for el in viafCluster.findall('{http://viaf.org/viaf/terms#}birthDate'):
-								aResult['birthDate'] = el.text
+							# for el in viafCluster.findall('{http://viaf.org/viaf/terms#}birthDate'):
+							# 	aResult['birthDate'] = el.text
 
-							for el in viafCluster.findall('{http://viaf.org/viaf/terms#}deathDate'):
-								aResult['deathDate'] = el.text
+							# for el in viafCluster.findall('{http://viaf.org/viaf/terms#}deathDate'):
+							# 	aResult['deathDate'] = el.text
+							for Document in viafCluster.findall('{http://viaf.org/viaf/terms#}Document'):
+									print(Document)
+									aResult['Document'].append(Document.attrib["about"])
+
 
 							for mainHeadings in viafCluster.findall('{http://viaf.org/viaf/terms#}mainHeadings'):
 								for el in mainHeadings.findall('{http://viaf.org/viaf/terms#}data'):
-									aResult['altNames'].append((el[0].text))
-
+									#if el['sources']['s'] == "LC":
+										aResult['mainName'].append((el[0].text))
+										#aResult['mainNamesource'].append("LC")
 							for sources in viafCluster.findall('{http://viaf.org/viaf/terms#}sources'):
 								for el in sources:
 									aResult['sources'].append(el.text)
 
-							for titles in viafCluster.findall('{http://viaf.org/viaf/terms#}titles'):
-								for el in titles:
-									aResult['titles'] .append(el[0].text)
+							# for titles in viafCluster.findall('{http://viaf.org/viaf/terms#}titles'):
+							# 	for el in titles:
+							# 		aResult['titles'] .append(el[0].text)
 
 
 					results.append(aResult)
@@ -179,9 +158,8 @@ class viafSearch:
 				# self.results[nid]['jdisc_city'] = city
 				# self.results[nid]['jdisc_last'] = lastName
 				# self.results[nid]['jdisc_first'] = firstName
-				# self.results[nid]['mapping'] = []
+				#self.results[nid]['mapping'] = []
 
-				#here is a line of data from columbia
 
 
 				counter = counter + 1
@@ -230,7 +208,7 @@ class viafSearch:
 
 			print ("\t",searchString,"Found:",len(searchResult))
 
-		quality = "low"
+			quality = "low"
 
 		#lets qualify a little bit
 		# if(self.results[nid]['jdisc_dob'] != 'NULL' and len(searchResult) == 1):
