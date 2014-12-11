@@ -3,7 +3,8 @@ SAD
 
 <strong>Spanish Artists Dictionary</strong>
 
-Introduction
+<em>Introduction</em>
+
 The <a href="http://research.frick.org/spanish/home.php">Spanish Artists Dictionary (SAD)</a> is a reference source created by scholars at the Frick Art Reference Library. Originally a print publication, the dictionary was formatted as a Filemaker database in the early 1990s and made available through the Frick’s online research portal. The database consists of 5,186 records describing Spanish artists; these records include information about artist name, alternate names, dates (birth, death, and/or activity), field of artistic endeavor, bibliographic references, and Frick Photoarchive holdings.
 The data from SAD’s three Filemaker tables has been made available for this project as CSV files.
 
