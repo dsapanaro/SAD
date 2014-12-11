@@ -22,7 +22,7 @@ def compare(SADstring,FRESCOstring):
    #should return LCSH or false
 
 FRESCO_list = []
-fieldnames = "RN", "WNAM", "", "LCN", "FRESCOSH", "BDATN", "BQN", "BQEN", "BDQN", "DDATN", "DQN", "DQEN", "DDQN", "OPRN", "OQN", "OOQN", "WDATES", "SDATN", "SDAT2N", "CENN", "CNUMN", "SCHN", "NSCHP","CLNON", "MEDN", "NBN", "UDATN", "FEM", "CLN", "UNCLN", "SUPN", "STAMPN", "UPN", "teaser", "SORTNAME", "FirstLetter","SEARCH","alts","","holdings","bestname","recid","notes","earliestdate","latestdate","latest","earliest","problem","teasterweb","event","more","teasterweb2","",""
+fieldnames = "RN", "WNAM", "", "LCN", "FRESCOSH", "VIAFLINK", "BDATN", "BQN", "BQEN", "BDQN", "DDATN", "DQN", "DQEN", "DDQN", "OPRN", "OQN", "OOQN", "WDATES", "SDATN", "SDAT2N", "CENN", "CNUMN", "SCHN", "NSCHP","CLNON", "MEDN", "NBN", "UDATN", "FEM", "CLN", "UNCLN", "SUPN", "STAMPN", "UPN", "teaser", "SORTNAME", "FirstLetter","SEARCH","alts","","holdings","bestname","recid","notes","earliestdate","latestdate","latest","earliest","problem","teasterweb","event","more","teasterweb2","",""
 colondictionary_list = []
 
 with open("FRESCO_spanish_names.csv", "r", encoding="ISO-8859-1") as g:
